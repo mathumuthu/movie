@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - StreamFlix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E50914',
+                        dark: '#141414',
+                        darker: '#0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .contact-card {
+            background: linear-gradient(135deg, #1f1f1f 0%, #141414 100%);
+            border: 1px solid #2a2a2a;
+        }
+        .input-field {
+            background: #1f1f1f;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #E50914;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-[#141414] text-white antialiased">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-gradient-to-b from-black/80 to-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Left: Logo & Hamburger -->
+                <div class="flex items-center gap-4">
+                    <button id="menuBtn" class="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    
+                    <a href="#" class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-red-600 to-red-800 rounded-lg flex items-center justify-center">
+                                                        <img src="logoo.webp" alt="Your Company" class="w-12 h-12 object-contain">                   
+
+                        </div>
+                        <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Stackly</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-baseline space-x-6">
+                    <a href="index.html" class="hover:text-red-500 transition-colors font-medium">Home</a>
+                    <a href="tv.html" class="hover:text-red-500 transition-colors font-medium">TV Shows</a>
+                    <a href="movie.html" class="hover:text-red-500 transition-colors font-medium">Movies</a>
+                    <a href="news.html" class="hover:text-red-500 transition-colors font-medium">New & Popular</a>
+                    <a href="contact.html" class="hover:text-red-500 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Right: Actions -->
+                <div class="flex items-center gap-2 md:gap-4">
+                    <button class="p-2 hover:bg-white/10 rounded-full transition-colors">
+                        <i class="fas fa-search text-lg"></i>
+                    </button>
+                    <button class="hidden md:flex p-2 hover:bg-white/10 rounded-full transition-colors relative">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </button>
+                    
+                    <div class="hidden md:flex items-center gap-2">
+                     <a href="login.html"><button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg font-medium transition-colors border border-white/20 text-sm">
+                            Login
+                        </button></a>   
+                        <a href="404.html"><button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition-colors text-sm">
+                            Subscribe
+                        </button></a>
+                    </div>
+
+                 <a href="404.html">   <button class="md:hidden p-2 hover:bg-white/10 rounded-full">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" alt="Profile" class="w-8 h-8 rounded-full">
+                    </button></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="overlay" class="overlay fixed inset-0 bg-black/80 z-50 md:hidden"></div>
+
+    <!-- Mobile Side Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 left-0 h-full w-80 bg-[#141414] z-50 md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <span class="text-xl font-bold">Menu</span>
+            <a href="404.html">    <button id="closeMenu" class="p-2 hover:bg-white/10 rounded-lg">
+                    <i class="fas fa-times text-xl"></i>
+                </button></a>
+            </div>
+
+            <div class="space-y-4 mb-8">
+                <a href="index.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-home text-gray-400"></i>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a href="tv.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-tv text-gray-400"></i>
+                    <span class="font-medium">TV Shows</span>
+                </a>
+                <a href="movie.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-film text-gray-400"></i>
+                    <span class="font-medium">Movies</span>
+                </a>
+                <a href="news.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-fire text-gray-400"></i>
+                    <span class="font-medium">New & Popular</span>
+                </a>
+                <a href="contact.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-list text-gray-400"></i>
+                    <span class="font-medium">Contact</span>
+                </a>
+            </div>
+
+            <div class="space-y-3 mb-8">
+             <a href="login.html"> <button class="w-full bg-white/10 hover:bg-white/20 py-3 rounded-lg font-medium transition-colors border border-white/20">
+                    Login
+                </button></a>  
+              <a href="404.html">   <button class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-medium transition-colors">
+                    Subscribe
+                </button></a>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 space-y-4">
+                <a href="contact.html" class="flex items-center gap-3 p-3 bg-white/10 rounded-lg transition-colors text-red-500">
+                    <i class="fas fa-envelope"></i>
+                    <span class="font-medium">Contact Us</span>
+                </a>
+                <a href="404.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors text-gray-400">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="404.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors text-gray-400">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help Center</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Hero Section -->
+    <div class="relative pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-b from-[#1a1a1a] to-[#141414]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">Get in Touch</h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">Have questions, feedback, or need assistance? We're here to help you with anything related to your streaming experience.</p>
+        </div>
+    </div>
+
+    <!-- Contact Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-24 md:pb-12">
+        
+        <!-- Contact Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="contact-card rounded-2xl p-6 md:p-8 text-center hover:border-red-600/50 transition-all duration-300">
+                <div class="w-16 h-16 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-headset text-2xl text-red-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Customer Support</h3>
+                <p class="text-gray-400 mb-4 text-sm">24/7 support for all your streaming needs</p>
+                <a href="404.html" class="text-red-500 hover:text-red-400 font-medium">1-800-STREAM</a>
+            </div>
+
+            <div class="contact-card rounded-2xl p-6 md:p-8 text-center hover:border-red-600/50 transition-all duration-300">
+                <div class="w-16 h-16 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-envelope text-2xl text-red-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Email Us</h3>
+                <p class="text-gray-400 mb-4 text-sm">Send us an email anytime</p>
+                <a href="404.html" class="text-red-500 hover:text-red-400 font-medium">support@streamflix.com</a>
+            </div>
+
+            <div class="contact-card rounded-2xl p-6 md:p-8 text-center hover:border-red-600/50 transition-all duration-300">
+                <div class="w-16 h-16 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-comments text-2xl text-red-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Live Chat</h3>
+                <p class="text-gray-400 mb-4 text-sm">Chat with our support team</p>
+                <a href="404.html" class="text-red-500 hover:text-red-400 font-medium">Start Chat</a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div class="contact-card rounded-2xl p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-6">Send us a Message</h2>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-gray-300">First Name</label>
+                            <input type="text" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-500" placeholder="John">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-gray-300">Last Name</label>
+                            <input type="text" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-500" placeholder="Doe">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
+                        <input type="email" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-500" placeholder="john@example.com">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-300">Subject</label>
+                        <select class="input-field w-full px-4 py-3 rounded-lg text-white bg-[#1f1f1f]">
+                            <option value="" class="bg-[#1f1f1f]">Select a topic</option>
+                            <option value="general" class="bg-[#1f1f1f]">General Inquiry</option>
+                            <option value="billing" class="bg-[#1f1f1f]">Billing & Subscription</option>
+                            <option value="technical" class="bg-[#1f1f1f]">Technical Support</option>
+                            <option value="content" class="bg-[#1f1f1f]">Content Request</option>
+                            <option value="feedback" class="bg-[#1f1f1f]">Feedback</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-300">Message</label>
+                        <textarea rows="5" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 resize-none" placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+
+                   <a href="404.html"> <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button></a>
+                </form>
+            </div>
+
+            <!-- FAQ Section -->
+            <div>
+                <h2 class="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="contact-card rounded-xl p-5 cursor-pointer hover:border-red-600/30 transition-all">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-gray-200">How do I reset my password?</h3>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-3 hidden">You can reset your password by clicking on "Forgot Password" on the login page. We'll send you a reset link via email.</p>
+                    </div>
+
+                    <div class="contact-card rounded-xl p-5 cursor-pointer hover:border-red-600/30 transition-all">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-gray-200">How do I cancel my subscription?</h3>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-3 hidden">Go to Account Settings > Subscription > Cancel Subscription. You can continue watching until the end of your billing period.</p>
+                    </div>
+
+                    <div class="contact-card rounded-xl p-5 cursor-pointer hover:border-red-600/30 transition-all">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-gray-200">Why is my video buffering?</h3>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-3 hidden">Check your internet connection speed. We recommend at least 5 Mbps for HD streaming and 25 Mbps for 4K content.</p>
+                    </div>
+
+                    <div class="contact-card rounded-xl p-5 cursor-pointer hover:border-red-600/30 transition-all">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-gray-200">Can I download content to watch offline?</h3>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-3 hidden">Yes! Click the download icon next to any title. Downloads are available on mobile apps and tablets.</p>
+                    </div>
+
+                    <div class="contact-card rounded-xl p-5 cursor-pointer hover:border-red-600/30 transition-all">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-gray-200">How many devices can I use?</h3>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-3 hidden">Depending on your plan, you can stream on 1-4 devices simultaneously and register up to 6 devices.</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-gradient-to-r from-red-600/20 to-red-800/20 rounded-2xl border border-red-600/30">
+                    <h3 class="font-bold text-lg mb-2">Still need help?</h3>
+                    <p class="text-gray-300 text-sm mb-4">Our support team is available 24/7 to assist you with any issues.</p>
+                    <a href="404.html">
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors text-sm">
+                            Visit Help Center
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Office Locations -->
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold mb-8 text-center">Our Offices</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="contact-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold">Los Angeles</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">1234 Sunset Boulevard<br>Los Angeles, CA 90028<br>United States</p>
+                </div>
+
+                <div class="contact-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold">New York</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">567 Broadway<br>New York, NY 10012<br>United States</p>
+                </div>
+
+                <div class="contact-card rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold">London</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">89 Oxford Street<br>London W1D 2HG<br>United Kingdom</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-800 pb-20 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Company</h3>
+                      <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="tv.html" class="hover:text-white">Tv shows</a></li>
+                        <li><a href="movie.html" class="hover:text-white">Movies</a></li>
+                        <li><a href="news.html" class="hover:text-white">News & Popular</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Support</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="404.html" class="hover:text-white text-red-500">Contact Us</a></li>
+                        <li><a href="404.html" class="hover:text-white">Help Center</a></li>
+                        <li><a href="404.html" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="404.html" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Community</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="404.html" class="hover:text-white">Guidelines</a></li>
+                        <li><a href="404.html" class="hover:text-white">Discussions</a></li>
+                        <li><a href="404.html" class="hover:text-white">Leaderboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+                <p>&copy; 2024 StreamFlix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Nav -->
+    <div class="fixed bottom-0 left-0 right-0 bg-[#141414] border-t border-gray-800 p-3 md:hidden z-40">
+        <div class="flex justify-around items-center">
+         <a href="index.html">  <button class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-home text-lg mb-1"></i>
+                <span class="text-[10px]">Home</span>
+            </button></a>
+            <a href="404.html">
+                <button class="flex flex-col items-center text-gray-400 hover:text-white">
+                    <i class="fas fa-compass text-lg mb-1"></i>
+                    <span class="text-[10px]">Discover</span>
+                </button>
+            </a>
+            <a href="404.html">
+                <button class="flex flex-col items-center text-gray-400 hover:text-white">
+                    <i class="fas fa-download text-lg mb-1"></i>
+                    <span class="text-[10px]">Downloads</span>
+                </button>
+            </a>
+            <a href="404.html">
+                <button class="flex flex-col items-center text-gray-400 hover:text-white">
+                    <i class="fas fa-user text-lg mb-1"></i>
+                    <span class="text-[10px]">Profile</span>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFunc);
+        overlay.addEventListener('click', closeMenuFunc);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#141414]', 'shadow-lg');
+                navbar.classList.remove('bg-gradient-to-b');
+            } else {
+                navbar.classList.remove('bg-[#141414]', 'shadow-lg');
+                navbar.classList.add('bg-gradient-to-b');
+            }
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.contact-card.rounded-xl');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.querySelector('p');
+                const icon = item.querySelector('.fa-chevron-down');
+                
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.querySelector('p').classList.add('hidden');
+                        otherItem.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                // Toggle current item
+                answer.classList.toggle('hidden');
+                icon.style.transform = answer.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:220px;
+height:100vh;
+background:#111;
+padding:20px;
+border-right:1px solid rgba(255,0,0,0.2);
+}
+
+.sidebar h2{
+color:#ff2b2b;
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:#ccc;
+text-decoration:none;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+transition:0.3s;
+}
+
+.sidebar a:hover{
+background:#1a0000;
+color:#ff2b2b;
+}
+
+/* MAIN */
+.main{
+flex:1;
+padding:20px;
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.header h1{
+color:#ff2b2b;
+}
+
+.logout{
+background:#ff0000;
+border:none;
+padding:8px 15px;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* CARDS */
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.card{
+background:#111;
+padding:20px;
+border-radius:12px;
+border:1px solid rgba(255,0,0,0.2);
+box-shadow:0 0 10px rgba(255,0,0,0.1);
+}
+
+.card h3{
+color:#ff2b2b;
+margin-bottom:10px;
+}
+
+/* TABLE */
+.table-box{
+margin-top:30px;
+background:#111;
+padding:20px;
+border-radius:12px;
+border:1px solid rgba(255,0,0,0.2);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+text-align:left;
+border-bottom:1px solid rgba(255,0,0,0.2);
+}
+
+th{
+color:#ff2b2b;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.sidebar{
+display:none;
+}
+body{
+flex-direction:column;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>Stackly</h2>
+
+<a href="404.html">Dashboard</a>
+<a href="404.html">Reports</a>
+<a href="404.html">Appointments</a>
+<a href="404.html">Settings</a>
+<a href="login.html">Login</a>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+<h1>User Dashboard</h1>
+<button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+
+<div class="card">
+<h3>Total Reports</h3>
+<p>12 Reports</p>
+</div>
+
+<div class="card">
+<h3>Appointments</h3>
+<p>3 Upcoming</p>
+</div>
+
+<div class="card">
+<h3>Test Status</h3>
+<p>2 Pending</p>
+</div>
+
+<div class="card">
+<h3>Profile</h3>
+<p>Active</p>
+</div>
+
+</div>
+
+<!-- TABLE -->
+<div class="table-box">
+
+<h3 style="color:#ff2b2b;margin-bottom:10px;">Recent Reports</h3>
+
+<table>
+<tr>
+<th>Date</th>
+<th>Test</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>20 Mar 2026</td>
+<td>Blood Test</td>
+<td style="color:lime;">Completed</td>
+</tr>
+
+<tr>
+<td>18 Mar 2026</td>
+<td>Scan</td>
+<td style="color:orange;">Pending</td>
+</tr>
+
+<tr>
+<td>15 Mar 2026</td>
+<td>Urine Test</td>
+<td style="color:lime;">Completed</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+function logout(){
+window.location.href="login.html";
+}
+
+</script>
+
+</body>
+</html>

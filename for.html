@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#000000,#1a0000);
+}
+
+.container{
+    width:350px;
+    background: rgba(0,0,0,0.85);
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(255,0,0,0.5);
+    backdrop-filter: blur(10px);
+    text-align:center;
+}
+
+h2{
+    color:#ff0000;
+    margin-bottom:15px;
+}
+
+p{
+    color:#ccc;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.input-box input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#111;
+    color:#fff;
+    margin-bottom:15px;
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#ff0000;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#cc0000;
+}
+
+.success{
+    display:none;
+    color:#00ff99;
+    margin-top:15px;
+    font-size:14px;
+}
+
+.back{
+    margin-top:15px;
+    display:block;
+    color:#ff0000;
+    text-decoration:none;
+}
+
+@media(max-width:400px){
+    .container{
+        width:90%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Forgot Password</h2>
+    <p>Enter your email to reset your password</p>
+
+    <form id="resetForm">
+        <div class="input-box">
+            <input type="email" placeholder="Enter Email" required>
+        </div>
+
+        <button type="submit" class="btn">Send Reset Link</button>
+    </form>
+
+    <div class="success" id="successMsg">
+        ✅ Reset link sent to your email!
+    </div>
+
+    <a href="login.html" class="back">← Back to Login</a>
+</div>
+
+<script>
+document.getElementById("resetForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    document.getElementById("successMsg").style.display = "block";
+});
+</script>
+
+</body>
+</html>

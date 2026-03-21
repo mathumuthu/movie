@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Shows - StreamFlix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E50914',
+                        dark: '#141414',
+                        darker: '#0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hero-gradient {
+            background: linear-gradient(to top, #141414 0%, transparent 60%, rgba(0,0,0,0.7) 100%);
+        }
+        .genre-pill {
+            transition: all 0.3s ease;
+        }
+        .genre-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-[#141414] text-white antialiased">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-gradient-to-b from-black/80 to-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Left: Logo & Hamburger -->
+                <div class="flex items-center gap-4">
+                    <button id="menuBtn" class="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    
+                    <a href="index.html" class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-red-600 to-red-800 rounded-lg flex items-center justify-center">
+                                                       <img src="logoo.webp" alt="Your Company" class="w-12 h-12 object-contain">                   
+
+                        </div>
+                        <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Stackly</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-baseline space-x-6">
+                    <a href="index.html" class="hover:text-red-500 transition-colors font-medium">Home</a>
+                    <a href="tv.html" class="text-red-500 font-medium">TV Shows</a>
+                    <a href="movie.html" class="hover:text-red-500 transition-colors font-medium">Movies</a>
+                    <a href="news.html" class="hover:text-red-500 transition-colors font-medium">New & Popular</a>
+                    <a href="contact.html" class="hover:text-red-500 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Right: Actions -->
+                <div class="flex items-center gap-2 md:gap-4">
+                    <a href="404.html" class="p-2 hover:bg-white/10 rounded-full transition-colors">
+                        <i class="fas fa-search text-lg"></i>
+                    </a>
+                    <a href="404.html" class="hidden md:flex p-2 hover:bg-white/10 rounded-full transition-colors relative">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </a>
+                    
+                    <div class="hidden md:flex items-center gap-2">
+                        <a href="login.html" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg font-medium transition-colors border border-white/20 text-sm">
+                            Login
+                        </a>
+                        <a href="404.html" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition-colors text-sm">
+                            Subscribe
+                        </a>
+                    </div>
+
+                    <a href="404.html" class="md:hidden p-2 hover:bg-white/10 rounded-full">
+                        <img src="netimg.webp" alt="Profile" class="w-8 h-8 rounded-full">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="overlay" class="overlay fixed inset-0 bg-black/80 z-50 md:hidden"></div>
+
+    <!-- Mobile Side Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 left-0 h-full w-80 bg-[#141414] z-50 md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <span class="text-xl font-bold">Menu</span>
+                <button id="closeMenu" class="p-2 hover:bg-white/10 rounded-lg">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 mb-8">
+                <a href="index.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-home text-gray-400"></i>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a href="tv.html" class="flex items-center gap-3 p-3 bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-tv text-red-500"></i>
+                    <span class="font-medium text-red-500">TV Shows</span>
+                </a>
+                <a href="movie.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-film text-gray-400"></i>
+                    <span class="font-medium">Movies</span>
+                </a>
+                <a href="news.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-fire text-gray-400"></i>
+                    <span class="font-medium">New & Popular</span>
+                </a>
+                <a href="contact.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-list text-gray-400"></i>
+                    <span class="font-medium">Contact</span>
+                </a>
+            </div>
+
+            <div class="space-y-3 mb-8">
+                <a href="login.html" class="block w-full bg-white/10 hover:bg-white/20 py-3 rounded-lg font-medium transition-colors border border-white/20 text-center">
+                    Login
+                </a>
+                <a href="404.html" class="block w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-medium transition-colors text-center">
+                    Subscribe
+                </a>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 space-y-4">
+                <a href="404.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors text-gray-400">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="404.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors text-gray-400">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help Center</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- TV Shows Hero -->
+    <div class="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="netimg.webp" class="w-full h-full object-cover" alt="TV Show Hero">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#141414]/90 via-[#141414]/50 to-transparent"></div>
+        </div>
+        
+        <div class="relative h-full flex items-end pb-12 md:pb-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="max-w-2xl space-y-4">
+                    <span class="inline-block px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-xs md:text-sm font-semibold border border-red-600/30">TV Show</span>
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">The Crown</h1>
+                    <div class="flex items-center gap-3 md:gap-4 text-sm md:text-base text-gray-300">
+                        <span class="text-green-400 font-semibold">95% Match</span>
+                        <span>2016</span>
+                        <span class="border border-gray-600 px-2 py-0.5 rounded text-xs">16+</span>
+                        <span>6 Seasons</span>
+                    </div>
+                    <p class="text-sm md:text-base lg:text-lg text-gray-300 line-clamp-2 md:line-clamp-3">Follows the political rivalries and romance of Queen Elizabeth II's reign and the events that shaped the second half of the twentieth century.</p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <a href="404.html" class="bg-white text-black px-5 md:px-8 py-2 md:py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-opacity-90 transition-all text-sm md:text-base">
+                            <i class="fas fa-play"></i> Play
+                        </a>
+                        <a href="404.html" class="bg-gray-500/30 backdrop-blur-sm text-white px-5 md:px-8 py-2 md:py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-gray-500/40 transition-all border border-white/20 text-sm md:text-base">
+                            <i class="fas fa-info-circle"></i> More Info
+                        </a>
+                        <a href="404.html" class="bg-gray-500/30 backdrop-blur-sm text-white p-2 md:p-3 rounded-lg hover:bg-gray-500/40 transition-all border border-white/20">
+                            <i class="fas fa-plus text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Genre Filter -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-wrap gap-2 md:gap-3">
+            <a href="404.html" class="genre-pill bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">All</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Drama</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Comedy</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Action</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Thriller</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Sci-Fi</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Documentary</a>
+            <a href="404.html" class="genre-pill bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium">Reality</a>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8 space-y-8 md:space-y-12 pb-24 md:pb-12">
+        
+        <!-- Popular TV Shows -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold">Popular on StreamFlix</h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="hero img.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                    <div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">TOP 10</div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="cinema.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img1.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                    <div class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded font-bold">NEW</div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img2.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Award Winning -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold">Award-Winning TV Shows</h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img4.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 left-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-trophy"></i> Emmy
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img5 (4).webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 left-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-trophy"></i> Golden Globe
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img6.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 left-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-trophy"></i> Emmy
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img7.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bingeworthy Shows -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold">Bingeworthy Shows</h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img8 (2).webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img9 (2).webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img10.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img11.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- International Shows -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold">International TV Shows</h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img11.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded font-bold">K-Drama</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img12.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded font-bold">Spanish</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img13.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded font-bold">British</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img14.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute top-2 right-2 bg-orange-600 text-white text-xs px-2 py-1 rounded font-bold">Anime</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reality & Talk Shows -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold">Reality & Talk Shows</h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img1.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img9 (2).webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="cinema.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img11.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html" class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</a>
+                        <a href="404.html" class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-800 mt-12 md:mt-20 pb-20 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Company</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="tv.html" class="hover:text-white">Tv shows</a></li>
+                        <li><a href="movie.html" class="hover:text-white">Movies</a></li>
+                        <li><a href="news.html" class="hover:text-white">News & Popular</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Support</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="404.html" class="hover:text-white">Help Center</a></li>
+                        <li><a href="404.html" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="404.html" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Community</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="404.html" class="hover:text-white">Guidelines</a></li>
+                        <li><a href="404.html" class="hover:text-white">Discussions</a></li>
+                        <li><a href="404.html" class="hover:text-white">Leaderboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="404.html" target="_blank" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="404.html" target="_blank" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="404.html" target="_blank" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="404.html" target="_blank" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+                <p>&copy; 2024 StreamFlix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Nav -->
+    <div class="fixed bottom-0 left-0 right-0 bg-[#141414] border-t border-gray-800 p-3 md:hidden z-40">
+        <div class="flex justify-around items-center">
+            <a href="index.html" class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-home text-lg mb-1"></i>
+                <span class="text-[10px]">Home</span>
+            </a>
+            <a href="tv-shows.html" class="flex flex-col items-center text-red-500">
+                <i class="fas fa-tv text-lg mb-1"></i>
+                <span class="text-[10px]">TV Shows</span>
+            </a>
+            <a href="movies.html" class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-film text-lg mb-1"></i>
+                <span class="text-[10px]">Movies</span>
+            </a>
+            <a href="404.html" class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-download text-lg mb-1"></i>
+                <span class="text-[10px]">Downloads</span>
+            </a>
+            <a href="404.html" class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-user text-lg mb-1"></i>
+                <span class="text-[10px]">Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFunc);
+        overlay.addEventListener('click', closeMenuFunc);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#141414]', 'shadow-lg');
+                navbar.classList.remove('bg-gradient-to-b');
+            } else {
+                navbar.classList.remove('bg-[#141414]', 'shadow-lg');
+                navbar.classList.add('bg-gradient-to-b');
+            }
+        });
+
+        // Genre filter interaction
+        const genrePills = document.querySelectorAll('.genre-pill');
+        genrePills.forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault();
+                genrePills.forEach(p => {
+                    p.classList.remove('bg-red-600');
+                    p.classList.add('bg-gray-800');
+                });
+                pill.classList.remove('bg-gray-800');
+                pill.classList.add('bg-red-600');
+                window.location.href = pill.getAttribute('href');
+            });
+        });
+    </script>
+</body>
+</html>

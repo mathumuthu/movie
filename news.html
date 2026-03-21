@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New & Popular - StreamFlix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E50914',
+                        dark: '#141414',
+                        darker: '#0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hero-gradient {
+            background: linear-gradient(to top, #141414 0%, transparent 60%, rgba(0,0,0,0.7) 100%);
+        }
+        .tab-active {
+            border-bottom: 3px solid #E50914;
+            color: white;
+        }
+        .coming-soon-badge {
+            background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+        }
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body class="bg-[#141414] text-white antialiased">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-gradient-to-b from-black/80 to-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Left: Logo & Hamburger -->
+                <div class="flex items-center gap-4">
+                    <button id="menuBtn" class="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    
+                    <a href="#" class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-red-600 to-red-800 rounded-lg flex items-center justify-center">
+                            <img src="logoo.webp" alt="Your Company" class="w-12 h-12 object-contain">                   
+                        </div>
+                        <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Stackly</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-baseline space-x-6">
+                    <a href="index.html" class="hover:text-red-500 transition-colors font-medium">Home</a>
+                    <a href="tv.html" class="hover:text-red-500 transition-colors font-medium">TV Shows</a>
+                    <a href="movie.html" class="hover:text-red-500 transition-colors font-medium">Movies</a>
+                    <a href="news.html" class="text-red-500 font-medium">New & Popular</a>
+                    <a href="contact.html" class="hover:text-red-500 transition-colors font-medium">Contact</a>
+                </div>
+
+                <!-- Right: Actions -->
+                <div class="flex items-center gap-2 md:gap-4">
+                    <button class="p-2 hover:bg-white/10 rounded-full transition-colors">
+                        <i class="fas fa-search text-lg"></i>
+                    </button>
+                 <a href="404.html">  <button class="hidden md:flex p-2 hover:bg-white/10 rounded-full transition-colors relative">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+                    </button></a> 
+                    
+                    <div class="hidden md:flex items-center gap-2">
+                        <a href="login.html"><button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg font-medium transition-colors border border-white/20 text-sm">
+                            Login
+                        </button></a>
+                        <a href="404.html">
+                            <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition-colors text-sm">
+                                Subscribe
+                            </button>
+                        </a>
+                    </div>
+
+                    <button class="md:hidden p-2 hover:bg-white/10 rounded-full">
+                        <img src="hero img.webp" alt="Profile" class="w-8 h-8 rounded-full">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="overlay" class="overlay fixed inset-0 bg-black/80 z-50 md:hidden"></div>
+
+    <!-- Mobile Side Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 left-0 h-full w-80 bg-[#141414] z-50 md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-8">
+                <span class="text-xl font-bold">Menu</span>
+                <button id="closeMenu" class="p-2 hover:bg-white/10 rounded-lg">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 mb-8">
+                <a href="index.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-home text-gray-400"></i>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a href="tv.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-tv text-gray-400"></i>
+                    <span class="font-medium">TV Shows</span>
+                </a>
+                <a href="movie.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-film text-gray-400"></i>
+                    <span class="font-medium">Movies</span>
+                </a>
+                <a href="news.html" class="flex items-center gap-3 p-3 bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-fire text-red-500"></i>
+                    <span class="font-medium text-red-500">New & Popular</span>
+                </a>
+                <a href="contact.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                    <i class="fas fa-list text-gray-400"></i>
+                    <span class="font-medium">Contact</span>
+                </a>
+            </div>
+
+            <div class="space-y-3 mb-8">
+                <a href="login.html"><button class="w-full bg-white/10 hover:bg-white/20 py-3 rounded-lg font-medium transition-colors border border-white/20">
+                    Login
+                </button></a>
+                <a href="404.html"><button class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-medium transition-colors">
+                    Subscribe
+                </button></a>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 space-y-4">
+                <a href="404.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors text-gray-400">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="404.html" class="flex items-center gap-3 p-3 hover:bg-white/10 rounded-lg transition-colors text-gray-400">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help Center</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="hero img.webp" class="w-full h-full object-cover" alt="New Release Hero">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#141414]/90 via-[#141414]/50 to-transparent"></div>
+        </div>
+        
+        <div class="relative h-full flex items-end pb-12 md:pb-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="max-w-2xl space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-block px-3 py-1 bg-red-600 text-white rounded-full text-xs md:text-sm font-bold">NEW RELEASE</span>
+                        <span class="text-green-400 font-semibold text-sm md:text-base">#1 Trending This Week</span>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">Dune: Part Two</h1>
+                    <div class="flex items-center gap-3 md:gap-4 text-sm md:text-base text-gray-300">
+                        <span class="text-green-400 font-semibold">96% Match</span>
+                        <span>2024</span>
+                        <span class="border border-gray-600 px-2 py-0.5 rounded text-xs">PG-13</span>
+                        <span>2h 46m</span>
+                    </div>
+                    <p class="text-sm md:text-base lg:text-lg text-gray-300 line-clamp-2 md:line-clamp-3">Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.</p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <a href="404.html"><button class="bg-white text-black px-5 md:px-8 py-2 md:py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-opacity-90 transition-all text-sm md:text-base">
+                            <i class="fas fa-play"></i> Play Now
+                        </button></a>
+                        <a href="404.html"><button class="bg-gray-500/30 backdrop-blur-sm text-white px-5 md:px-8 py-2 md:py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-gray-500/40 transition-all border border-white/20 text-sm md:text-base">
+                            <i class="fas fa-info-circle"></i> More Info
+                        </button></a>
+                        <a href="404.html"><button class="bg-gray-500/30 backdrop-blur-sm text-white p-2 md:p-3 rounded-lg hover:bg-gray-500/40 transition-all border border-white/20">
+                            <i class="fas fa-plus text-lg"></i>
+                        </button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 border-b border-gray-800">
+        <div class="flex gap-6 md:gap-8 overflow-x-auto">
+            <a href="404.html"><button class="tab-active pb-2 text-sm md:text-base font-medium whitespace-nowrap">New on StreamFlix</button></a>
+            <a href="404.html"><button class="text-gray-400 hover:text-white pb-2 text-sm md:text-base font-medium whitespace-nowrap transition-colors">Coming Soon</button></a>
+            <a href="404.html"><button class="text-gray-400 hover:text-white pb-2 text-sm md:text-base font-medium whitespace-nowrap transition-colors">Top 10 Movies</button></a>
+            <a href="404.html"><button class="text-gray-400 hover:text-white pb-2 text-sm md:text-base font-medium whitespace-nowrap transition-colors">Top 10 TV Shows</button></a>
+            <a href="404.html"><button class="text-gray-400 hover:text-white pb-2 text-sm md:text-base font-medium whitespace-nowrap transition-colors">Worth the Wait</button></a>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10 md:space-y-14 pb-24 md:pb-12">
+        
+        <!-- New on StreamFlix -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-sparkles text-yellow-400"></i> New on StreamFlix
+                </h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="cinema.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="New Release">
+                    <div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">NEW</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="netimg.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="New Release">
+                    <div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">NEW</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img1.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="New Release">
+                    <div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">NEW</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img2.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="New Release">
+                    <div class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">NEW</div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming This Week -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-calendar-alt text-blue-400"></i> Coming This Week
+                </h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img2.webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Coming Soon">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="coming-soon-badge text-white text-xs px-3 py-1 rounded-full font-bold">MAR 22</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">The Batman 2</p>
+                        <p class="text-xs text-gray-400">Remind Me</p>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img7.webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Coming Soon">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="coming-soon-badge text-white text-xs px-3 py-1 rounded-full font-bold">MAR 25</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">Stranger Things 5</p>
+                        <p class="text-xs text-gray-400">Remind Me</p>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img4.webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Coming Soon">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="coming-soon-badge text-white text-xs px-3 py-1 rounded-full font-bold">MAR 28</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">Avatar 3</p>
+                        <p class="text-xs text-gray-400">Remind Me</p>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img5 (4).webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Coming Soon">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="coming-soon-badge text-white text-xs px-3 py-1 rounded-full font-bold">APR 1</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">Mission Impossible 8</p>
+                        <p class="text-xs text-gray-400">Remind Me</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top 10 Movies Today -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-fire text-red-500"></i> Top 10 Movies Today
+                </h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">1</div>
+                    <img src="cinema.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top Movie">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">2</div>
+                    <img src="img1.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top Movie">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">3</div>
+                    <img src="img9 (2).webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top Movie">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">4</div>
+                    <img src="img4.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top Movie">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">5</div>
+                    <img src="img13.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top Movie">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top 10 TV Shows Today -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-fire text-orange-500"></i> Top 10 TV Shows Today
+                </h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">1</div>
+                    <img src="img12.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">2</div>
+                    <img src="img10.webp"w-full rounded-lg aspect-[2/3] object-cover" alt="Top TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">3</div>
+                    <img src="img13.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">4</div>
+                    <img src="img9 (2).webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <div class="absolute -top-2 left-2 w-6 h-10 md:w-8 md:h-12 bg-red-600 rounded flex items-center justify-center text-white font-bold shadow-lg text-sm md:text-base z-10">5</div>
+                    <img src="img6.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Top TV Show">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch Now</button></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Worth the Wait -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-clock text-purple-400"></i> Worth the Wait
+                </h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img14.webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Worth Wait">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-bold">APR 15</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">Squid Game S2</p>
+                        <p class="text-xs text-gray-400">Most Anticipated</p>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img13.webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Worth Wait">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-bold">MAY 1</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">House of Dragons S2</p>
+                        <p class="text-xs text-gray-400">Most Anticipated</p>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img14.webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Worth Wait">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-bold">MAY 20</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">Deadpool 3</p>
+                        <p class="text-xs text-gray-400">Most Anticipated</p>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img8 (2).webp" class="w-full rounded-lg aspect-[2/3] object-cover filter brightness-75" alt="Worth Wait">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-bold">JUN 10</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                        <p class="text-sm font-semibold">The Witcher S4</p>
+                        <p class="text-xs text-gray-400">Most Anticipated</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Viral Right Now -->
+        <section>
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <h2 class="text-lg md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-bolt text-yellow-400"></i> Viral Right Now
+                </h2>
+                <a href="404.html" class="text-xs md:text-sm text-gray-400 hover:text-white flex items-center gap-1">View All <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="relative group cursor-pointer">
+                    <img src="img12.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Viral">
+                    <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-arrow-trend-up"></i> Hot
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img10.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Viral">
+                    <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-arrow-trend-up"></i> Hot
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img13.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Viral">
+                    <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-arrow-trend-up"></i> Hot
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+                <div class="relative group cursor-pointer">
+                    <img src="img14.webp" class="w-full rounded-lg aspect-[2/3] object-cover" alt="Viral">
+                    <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold flex items-center gap-1">
+                        <i class="fas fa-arrow-trend-up"></i> Hot
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg gap-2">
+                        <a href="404.html"><button class="bg-white text-black px-3 md:px-4 py-2 rounded-full font-semibold text-sm">Watch</button></a>
+                        <a href="404.html"><button class="bg-gray-800/80 p-2 rounded-full"><i class="fas fa-plus text-white"></i></button></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-800 mt-12 md:mt-20 pb-20 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Company</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="tv.html" class="hover:text-white">Tv shows</a></li>
+                        <li><a href="movie.html" class="hover:text-white">Movies</a></li>
+                        <li><a href="news.html" class="hover:text-white">News & Popular</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Support</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="404.html" class="hover:text-white">Help Center</a></li>
+                        <li><a href="404.html" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="404.html" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Community</h3>
+                    <ul class="space-y-2 text-sm md:text-base text-gray-400">
+                        <li><a href="404.html" class="hover:text-white">Guidelines</a></li>
+                        <li><a href="404.html" class="hover:text-white">Discussions</a></li>
+                        <li><a href="404.html" class="hover:text-white">Leaderboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="404.html" class="text-gray-400 hover:text-white text-xl md:text-2xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+                <p>&copy; 2024 StreamFlix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Nav -->
+    <div class="fixed bottom-0 left-0 right-0 bg-[#141414] border-t border-gray-800 p-3 md:hidden z-40">
+        <div class="flex justify-around items-center">
+            <a href="index.html"><button class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-home text-lg mb-1"></i>
+                <span class="text-[10px]">Home</span>
+            </button></a>
+            <a href="tv.html"><button class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-tv text-lg mb-1"></i>
+                <span class="text-[10px]">TV Shows</span>
+            </button></a>
+            <a href="movie.html"><button class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-film text-lg mb-1"></i>
+                <span class="text-[10px]">Movies</span>
+            </button></a>
+            <a href="news.html"><button class="flex flex-col items-center text-red-500">
+                <i class="fas fa-fire text-lg mb-1"></i>
+                <span class="text-[10px]">New & Hot</span>
+            </button></a>
+            <a href="404.html"><button class="flex flex-col items-center text-gray-400 hover:text-white">
+                <i class="fas fa-user text-lg mb-1"></i>
+                <span class="text-[10px]">Profile</span>
+            </button></a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFunc);
+        overlay.addEventListener('click', closeMenuFunc);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#141414]', 'shadow-lg');
+                navbar.classList.remove('bg-gradient-to-b');
+            } else {
+                navbar.classList.remove('bg-[#141414]', 'shadow-lg');
+                navbar.classList.add('bg-gradient-to-b');
+            }
+        });
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.max-w-7xl.mx-auto.px-4.sm\\:px-6.lg\\:px-8.py-6 button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('tab-active');
+                    t.classList.add('text-gray-400');
+                });
+                tab.classList.add('tab-active');
+                tab.classList.remove('text-gray-400');
+            });
+        });
+    </script>
+</body>
+</html>
