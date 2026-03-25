@@ -250,9 +250,9 @@
                         <textarea rows="5" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 resize-none" placeholder="Tell us how we can help you..."></textarea>
                     </div>
 
-                   <a href="404.html"> <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+                  <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
                         <i class="fas fa-paper-plane"></i> Send Message
-                    </button></a>
+                    </button>
                 </form>
             </div>
 
@@ -487,6 +487,28 @@
                 icon.style.transform = answer.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
             });
         });
+        const form = document.querySelector("form");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const inputs = form.querySelectorAll("input, textarea, select");
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (input.value.trim() === "") {
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        alert("Please fill this page first!");
+    } else {
+        alert("Message sent successfully!");
+        // redirect after success
+        window.location.href = "404.html";
+    }
+});
     </script>
 </body>
 </html>
